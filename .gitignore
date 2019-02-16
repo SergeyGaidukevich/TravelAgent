@@ -1,0 +1,11 @@
+.project
+.classpath
+.settings
+target
+log
+logs/
+*.jar
+.pmd
+*.iml
+.idea
+.DS_Store
