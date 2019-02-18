@@ -4,23 +4,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class Review extends Entity {
-    private List<Tour> tours;
+    private Tour tour;
     private User user;
     private String content;
 
-    public Review(Long id, List<Tour> tours, User user, String content) {
+    public Review() {}
+
+    public Review(Long id, Tour tour, User user, String content) {
         super(id);
-        this.tours = tours;
+        this.tour = tour;
         this.user = user;
         this.content = content;
     }
 
-    public List<Tour> getTours() {
-        return tours;
+    public Tour getTour() {
+        return tour;
     }
 
-    public void setTours(List<Tour> tours) {
-        this.tours = tours;
+    public void setTour(Tour tour) {
+        this.tour = tour;
     }
 
     public User getUser() {
@@ -45,20 +47,20 @@ public class Review extends Entity {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Review review = (Review) o;
-        return Objects.equals(tours, review.tours) &&
+        return Objects.equals(tour, review.tour) &&
                 Objects.equals(user, review.user) &&
                 Objects.equals(content, review.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), tours, user, content);
+        return Objects.hash(super.hashCode(), tour, user, content);
     }
 
     @Override
     public String toString() {
         return "Review{" +
-                "tours=" + tours +
+                "tours=" + tour +
                 ", user=" + user +
                 ", content='" + content + '\'' +
                 '}';
