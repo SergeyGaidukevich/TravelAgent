@@ -19,6 +19,11 @@ public class JdbcTemplateHotelRepository implements HotelRepository {
     private static final String SQL_UPDATE_HOTEL_BY_ID = "UPDATE hotels SET name = :name, phone = :phone," +
             " country_id = :country, stars = :stars WHERE hotel_id = :id";
     private static final String SQL_SELECT_ALL_HOTELS = "SELECT * from hotels";
+    private static final String SQL_UPDATE_HOTELS_NAME_BY_ID = "UPDATE hotels SET name = :name WHERE hotel_id = :id";
+    private static final String SQL_UPDATE_HOTELS_PHONE_BY_ID = "UPDATE hotels SET phone = :phone WHERE hotel_id = :id";
+    private static final String SQL_UPDATE_HOTELS_COUNTRY_ID_BY_HOTEL_ID = "UPDATE hotels SET country_id = :country_id WHERE hotel_id = :id";
+    private static final String SQL_UPDATE_HOTELS_STARS_BY_ID = "UPDATE hotels SET stars = :stars WHERE hotel_id = :id";
+    private static final String SQL_ELECT_ALL_FROM_COUNTRIES_BY_ID = "SELECT * from countries WHERE country_id = :id";
     private JdbcTemplate jdbcTemplate;
 
     public void setDataSource(DataSource dataSource) {
@@ -28,7 +33,7 @@ public class JdbcTemplateHotelRepository implements HotelRepository {
     @Override
     public void add(Hotel hotel) {
         Map<String, Object> params = new HashMap<>();
-        putSomeParametersInMap(params, hotel);
+        putSomeHotelParametersInMap(params, hotel);
 
         jdbcTemplate.update(SQL_INSERT_HOTEL, params);
     }
@@ -42,29 +47,46 @@ public class JdbcTemplateHotelRepository implements HotelRepository {
     public void update(Long id, Hotel hotel) {
         Map<String, Object> params = new HashMap<>();
         params.put("id", id);
-        putSomeParametersInMap(params, hotel);
+        putSomeHotelParametersInMap(params, hotel);
 
         jdbcTemplate.update(SQL_UPDATE_HOTEL_BY_ID, params);
     }
 
     @Override
     public void updateName(Long id, String name) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("name", name);
 
+        jdbcTemplate.update(SQL_UPDATE_HOTELS_NAME_BY_ID, params);
     }
 
     @Override
     public void updatePhone(Long id, String phone) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("phone", phone);
+
+        jdbcTemplate.update(SQL_UPDATE_HOTELS_PHONE_BY_ID, params);
 
     }
 
     @Override
     public void updateCountry(Long id, Country country) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("country_id", country.getId());
 
+        jdbcTemplate.update(SQL_UPDATE_HOTELS_COUNTRY_ID_BY_HOTEL_ID, params);
     }
 
     @Override
     public void updateStars(Long id, int stars) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        params.put("stars", stars);
 
+        jdbcTemplate.update(SQL_UPDATE_HOTELS_STARS_BY_ID, params);
     }
 
     @Override
@@ -77,10 +99,10 @@ public class JdbcTemplateHotelRepository implements HotelRepository {
         return null;
     }
 
-    private void putSomeParametersInMap(Map<String, Object> params, Hotel hotel) {
+    private void putSomeHotelParametersInMap(Map<String, Object> params, Hotel hotel) {
         params.put("name", hotel.getName());
         params.put("phone", hotel.getPhone());
-        params.put("country_id", hotel.getCountry());
+        params.put("country_id", hotel.getCountry().getId());
         params.put("stars", hotel.getStars());
     }
 
@@ -89,11 +111,21 @@ public class JdbcTemplateHotelRepository implements HotelRepository {
         hotel.setId(rs.getLong("hotel_id"));
         hotel.setName(rs.getString("name"));
         hotel.setPhone(rs.getString("phone"));
-        Country country = new Country();
-        country.setId(rs.getLong("country_id"));
+
+        Long country_id = rs.getLong("country_id");
+        Country country = jdbcTemplate.queryForObject(SQL_ELECT_ALL_FROM_COUNTRIES_BY_ID, this::mapCountry, country_id);
         hotel.setCountry(country);
+
         hotel.setStars(rs.getInt("stars"));
 
         return hotel;
+    }
+
+    private Country mapCountry(ResultSet rs, int rowNum) throws SQLException {
+        Country country = new Country();
+        country.setId(rs.getLong("country_id"));
+        country.setName(rs.getString("name"));
+
+        return country;
     }
 }
