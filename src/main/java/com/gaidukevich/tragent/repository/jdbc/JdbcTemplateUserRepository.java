@@ -3,13 +3,10 @@ package com.gaidukevich.tragent.repository.jdbc;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.UserRepository;
-import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.util.List;
-import java.util.Objects;
 
 public class JdbcTemplateUserRepository implements UserRepository {
     private JdbcTemplate jdbcTemplate;
@@ -39,7 +36,27 @@ public class JdbcTemplateUserRepository implements UserRepository {
     }
 
     @Override
-    public void add(User instance) {
+    public void add(User user) {
+//        String sqlAddUser = "INSERT INTO travel_agent.users (login, password) VALUES (?, ?);";
+//        jdbcTemplate.update(sqlAddUser, user.getLogin(), user.getPassword());
+//
+//        List<Review> reviews = user.getReviews();
+//        String sqlAddReviews = "INSERT INTO travel_agent.reviews (tour_id, user_id, content)" +
+//                " VALUES (?, ?, ?);";
+//        reviews.forEach(review -> jdbcTemplate.update(sqlAddReviews, review.getTour(), review.getUser(),
+//                review.getContent()));
+//
+//
+//        List<Tour> tours = user.getTours();
+//        String sqlAddTours = "INSERT INTO travel_agent.tours (photo, date, duration, country_id, hotel_id, type, description, cost)" +
+//                " VALUES ('?', '?', '?', '?', '?', '?', '?', '?');";
+//        tours.forEach(tour -> jdbcTemplate.update(sqlAddTours, tour.getPhoto(), tour.getDate(), tour.getDuration(),
+//                 tour.getCountry(), tour.getHotel(), tour.getType(), tour.getDescription(), tour.getCost()));
+//
+//        String sqlAddUserTours = "INSERT INTO travel_agent.user_tours (tour_id, user_id) " +
+//                " VALUES (?, ?);";
+//        tours.forEach(tour -> jdbcTemplate.update(sqlAddUserTours));
+
 
     }
 

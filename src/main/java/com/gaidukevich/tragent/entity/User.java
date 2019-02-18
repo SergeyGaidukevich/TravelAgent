@@ -9,7 +9,8 @@ public class User extends Entity {
     private List<Tour> tours;
     private List<Review> reviews;
 
-    public User() {}
+    public User() {
+    }
 
     public User(Long id, String login, String password, List<Tour> tours, List<Review> reviews) {
         super(id);
