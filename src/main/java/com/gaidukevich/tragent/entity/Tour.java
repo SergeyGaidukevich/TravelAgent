@@ -12,6 +12,8 @@ public class Tour extends Entity {
     private String description;
     private Double cost;
 
+    public Tour() {}
+
     public Tour(Long id, String photo, String date, String duration, Country country, Hotel hotel, TourType type,
                 String description, Double cost) {
         super(id);

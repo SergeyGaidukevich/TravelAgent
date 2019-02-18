@@ -5,6 +5,8 @@ import java.util.Objects;
 public class Country extends Entity {
     private String name;
 
+    public Country() {}
+
     public Country(Long id, String name) {
         super(id);
         this.name = name;

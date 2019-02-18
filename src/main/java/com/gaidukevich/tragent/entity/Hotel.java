@@ -8,6 +8,8 @@ public class Hotel extends Entity {
     private Country country;
     private int stars;
 
+    public Hotel(){}
+
     public Hotel(Long id, String name, String phone, Country country, int stars) {
         super(id);
         this.name = name;
