@@ -12,14 +12,13 @@ public class ReviewRepositoryImpl extends GenericRepository<Review> implements R
     public void update(Long id, Review newReview) {
         Review review = getById(id);
 
-        review.setTours(newReview.getTours());
+        review.setTour(newReview.getTour());
         review.setUser(newReview.getUser());
         review.setContent(newReview.getContent());
     }
 
-    @Override
-    public void updateTours(Long id, List<Tour> tours) {
-        getById(id).setTours(tours);
+    public void updateTour(Long id, Tour tour) {
+        getById(id).setTour(tour);
     }
 
     @Override

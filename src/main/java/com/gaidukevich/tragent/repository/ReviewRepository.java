@@ -7,7 +7,7 @@ import com.gaidukevich.tragent.entity.User;
 import java.util.List;
 
 public interface ReviewRepository extends Repository<Review> {
-    void updateTours(Long id, List<Tour> tours);
+    void updateTour(Long id, Tour tour);
 
     void updateUser(Long id, User user);
 
