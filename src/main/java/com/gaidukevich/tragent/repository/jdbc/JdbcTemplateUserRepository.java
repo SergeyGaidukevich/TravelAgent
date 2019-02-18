@@ -1,6 +1,5 @@
 package com.gaidukevich.tragent.repository.jdbc;
 
-import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.UserRepository;

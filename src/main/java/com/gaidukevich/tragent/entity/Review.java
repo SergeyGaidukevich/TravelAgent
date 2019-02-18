@@ -1,6 +1,5 @@
 package com.gaidukevich.tragent.entity;
 
-import java.util.List;
 import java.util.Objects;
 
 public class Review extends Entity {
@@ -8,7 +7,8 @@ public class Review extends Entity {
     private User user;
     private String content;
 
-    public Review() {}
+    public Review() {
+    }
 
     public Review(Long id, Tour tour, User user, String content) {
         super(id);
