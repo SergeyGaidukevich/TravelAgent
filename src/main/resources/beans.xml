@@ -8,18 +8,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <bean id="countryRepositoryImpl" class="com.gaidukevich.tragent.repository.impl.CountryRepositoryImpl"/>
-    <bean id="hotelRepositoryImpl" class="com.gaidukevich.tragent.repository.impl.HotelRepositoryImpl"/>
-    <bean id="reviewRepositoryImpl" class="com.gaidukevich.tragent.repository.impl.ReviewRepositoryImpl"/>
-    <bean id="tourRepositoryImpl" class="com.gaidukevich.tragent.repository.impl.TourRepositoryImpl"/>
-    <bean id="userRepositoryImpl" class="com.gaidukevich.tragent.repository.impl.UserRepositoryImpl"/>
-    <bean id="genericRepository" class="com.gaidukevich.tragent.repository.impl.GenericRepository" abstract="true"/>
-
     <context:property-placeholder location="database.properties"/>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${db.driver}"/>
@@ -27,4 +16,26 @@
         <property name="username" value="${db.user}"/>
         <property name="password" value="${db.password}"/>
     </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="countryRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository">
+        <constructor-arg value="jdbcTemplate"/>
+    </bean>
+    <bean id="hotelRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository">
+        <constructor-arg value="jdbcTemplate"/>
+    </bean>
+    <bean id="reviewRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository">
+        <constructor-arg value="jdbcTemplate"/>
+    </bean>
+    <bean id="tourRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository">
+        <constructor-arg value="jdbcTemplate"/>
+    </bean>
+    <bean id="userRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository">
+        <constructor-arg value="jdbcTemplate"/>
+    </bean>
+    <bean id="genericRepository" class="com.gaidukevich.tragent.repository.impl.GenericRepository" abstract="true"/>
+
 </beans>
