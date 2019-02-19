@@ -19,7 +19,7 @@ USE `travel_agent` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `travel_agent`.`countries` (
   `country_id` BIGINT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `country_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`country_id`),
   UNIQUE INDEX `Id_UNIQUE` (`country_id` ASC) VISIBLE)
 ENGINE = InnoDB;
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `travel_agent`.`hotels` (
   `hotel_id` BIGINT NOT NULL,
-  `name` VARCHAR(45) NOT NULL,
+  `hotel_name` VARCHAR(45) NOT NULL,
   `phone` VARCHAR(45) NOT NULL,
   `country_id` BIGINT NOT NULL,
   `stars` INT NOT NULL,

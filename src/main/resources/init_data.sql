@@ -1,15 +1,15 @@
-INSERT INTO travel_agent.countries (name) VALUES ('Belarus');
-INSERT INTO travel_agent.countries (name) VALUES ('Russia');
-INSERT INTO travel_agent.countries (name) VALUES ('England');
-INSERT INTO travel_agent.countries (name) VALUES ('France');
+INSERT INTO travel_agent.countries (country_name) VALUES ('Belarus');
+INSERT INTO travel_agent.countries (country_name) VALUES ('Russia');
+INSERT INTO travel_agent.countries (country_name) VALUES ('England');
+INSERT INTO travel_agent.countries (country_name) VALUES ('France');
 
-INSERT INTO travel_agent.hotels (name, phone, country_id, stars)
+INSERT INTO travel_agent.hotels (hotel_name, phone, country_id, stars)
 	VALUES ('DoubleTree by Hilton Hotel Minsk', '+375443333333', 1, 5);
-INSERT INTO travel_agent.hotels (name, phone, country_id, stars)
+INSERT INTO travel_agent.hotels (hotel_name, phone, country_id, stars)
 	VALUES ('Pushka Inn Hotel', '+3751743333333', 2, 5);
-INSERT INTO travel_agent.hotels (name, phone, country_id, stars)
+INSERT INTO travel_agent.hotels (hotel_name, phone, country_id, stars)
 	VALUES ('The Petwood Hotel', '+441526352411', 3, 4);
-INSERT INTO travel_agent.hotels (name, phone, country_id, stars)
+INSERT INTO travel_agent.hotels (hotel_name, phone, country_id, stars)
 	VALUES ('Hotel ibis Styles Paris Roissy CDG', '+33134293434', 4, 3);
     
 INSERT INTO travel_agent.tours (photo, date, duration, country_id, hotel_id, type, description, cost)
