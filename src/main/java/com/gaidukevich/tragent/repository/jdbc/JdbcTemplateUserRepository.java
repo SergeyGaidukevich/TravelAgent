@@ -5,14 +5,13 @@ import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.UserRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcTemplateUserRepository implements UserRepository {
     private JdbcTemplate jdbcTemplate;
 
-    public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    public JdbcTemplateUserRepository(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
