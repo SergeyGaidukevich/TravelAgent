@@ -3,7 +3,7 @@ package com.gaidukevich.tragent.repository;
 import java.util.List;
 
 public interface Repository<T> {
-    void add(T instance);
+    void add(T entity);
 
     void remove(Long id);
 
