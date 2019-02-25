@@ -21,21 +21,16 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="countryRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository">
-        <constructor-arg value="jdbcTemplate"/>
-    </bean>
-    <bean id="hotelRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository">
-        <constructor-arg value="jdbcTemplate"/>
-    </bean>
-    <bean id="reviewRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository">
-        <constructor-arg value="jdbcTemplate"/>
-    </bean>
-    <bean id="tourRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository">
-        <constructor-arg value="jdbcTemplate"/>
-    </bean>
-    <bean id="userRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository">
-        <constructor-arg value="jdbcTemplate"/>
-    </bean>
+    <bean id="countryRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository" autowire="constructor"/>
+
+    <bean id="hotelRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository" autowire="constructor"/>
+
+    <bean id="reviewRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository" autowire="constructor"/>
+
+    <bean id="tourRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository" autowire="constructor"/>
+
+    <bean id="userRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository" autowire="constructor"/>
+
     <bean id="genericRepository" class="com.gaidukevich.tragent.repository.impl.GenericRepository" abstract="true"/>
 
 </beans>
