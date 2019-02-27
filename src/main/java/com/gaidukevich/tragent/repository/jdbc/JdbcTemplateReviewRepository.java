@@ -4,8 +4,8 @@ import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,7 +33,7 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
         Map<String, Object> params = new HashMap<>();
         putReviewParametersInMap(params, review);
 
-        jdbcTemplate.update(SQL_INSERT_REVIEW, params);
+        getNamedParameterJdbcTemplate().update(SQL_INSERT_REVIEW, params);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
         params.put("review_id", review.getId());
         putReviewParametersInMap(params, review);
 
-        jdbcTemplate.update(SQL_UPDATE_REVIEW_BY_ID, params);
+        getNamedParameterJdbcTemplate().update(SQL_UPDATE_REVIEW_BY_ID, params);
     }
 
     @Override
@@ -75,5 +75,9 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
         review.setContent(rs.getString("content"));
 
         return review;
+    }
+
+    private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }

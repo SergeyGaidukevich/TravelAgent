@@ -6,6 +6,7 @@ import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,11 +26,12 @@ public class JdbcTemplateUserRepository implements Repository<User> {
     private static final String SQL_SELECT_USER_BY_ID = "SELECT users.user_id, users.login, users.password," +
             " user_tours.tour_id, reviews.review_id FROM users" +
             " LEFT JOIN reviews ON reviews.user_id = users.user_id" +
-            " LEFT JOIN user_tours ON users.user_id = user_tours.user_id  WHERE users.user_id = :user_id";
+            " LEFT JOIN user_tours ON users.user_id = user_tours.user_id  WHERE users.user_id = ?";
     private static final String SQL_INSERT_USER = "INSERT INTO travel_agent.users (login, password)" +
             " VALUES (:login, :password)";
     private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM users WHERE user_id = ?";
-    private static final String UPDATE_USER_BY_ID = "UPDATE users SET login = :login, password = :password WHERE user_id = :user_id";
+    private static final String UPDATE_USER_BY_ID = "UPDATE users SET login = :login, password = :password" +
+            " WHERE user_id = :user_id";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -42,7 +44,7 @@ public class JdbcTemplateUserRepository implements Repository<User> {
         Map<String, Object> params = new HashMap<>();
         putUserParametersInMap(params, user);
 
-        jdbcTemplate.update(SQL_INSERT_USER, params);
+        getNamedParameterJdbcTemplate().update(SQL_INSERT_USER, params);
     }
 
     @Override
@@ -56,7 +58,7 @@ public class JdbcTemplateUserRepository implements Repository<User> {
         params.put("user_id", user.getId());
         putUserParametersInMap(params, user);
 
-        jdbcTemplate.update(UPDATE_USER_BY_ID, params);
+        getNamedParameterJdbcTemplate().update(UPDATE_USER_BY_ID, params);
     }
 
     @Override
@@ -113,17 +115,27 @@ public class JdbcTemplateUserRepository implements Repository<User> {
 
                 User user = users.get(user_id);
                 if (user == null) {
-                    List<Tour> toursList = new ArrayList<>(userTourMap.get(user_id));
-                    List<Review> reviewList = new ArrayList<>(userReviewMap.get(user_id));
+                    List<Tour> toursList = new ArrayList<>();
+                    List<Review> reviewList = new ArrayList<>();
                     user = new User(user_id, login, password, toursList, reviewList);
                     users.put(user_id, user);
-                } else {
-                    user.getTours().add(tour);
-                    user.getReviews().add(review);
                 }
             }
 
-            return new ArrayList<>(users.values());
+            List<User> extractUsers = new ArrayList<>();
+            Set<Long> keys = users.keySet();
+            keys.forEach(key -> {
+                User user = users.get(key);
+                user.setReviews(new ArrayList<>(userReviewMap.get(key)));
+                user.setTours(new ArrayList<>(userTourMap.get(key)));
+                extractUsers.add(user);
+            });
+
+            return extractUsers;
         }
+    }
+
+    private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }
