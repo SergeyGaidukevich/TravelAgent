@@ -5,8 +5,8 @@ import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
         Map<String, Object> params = new HashMap<>();
         putTourParametersInMap(params, tour);
 
-        jdbcTemplate.update(SQL_INSERT_TOUR, params);
+        getNamedParameterJdbcTemplate().update(SQL_INSERT_TOUR, params);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
         params.put("tour_id", tour.getId());
         putTourParametersInMap(params, tour);
 
-        jdbcTemplate.update(SQL_UPDATE_TOUR_BY_ID, params);
+        getNamedParameterJdbcTemplate().update(SQL_UPDATE_TOUR_BY_ID, params);
     }
 
     @Override
@@ -60,7 +60,7 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
 
     @Override
     public Tour getById(Long id) {
-        return jdbcTemplate.queryForObject(SQL_SELECT_TOUR_BY_ID , this::mapTour, id.intValue());
+        return jdbcTemplate.queryForObject(SQL_SELECT_TOUR_BY_ID, this::mapTour, id.intValue());
     }
 
     private void putTourParametersInMap(Map<String, Object> params, Tour tour) {
@@ -90,5 +90,9 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
         tour.setCost(rs.getDouble("cost"));
 
         return tour;
+    }
+
+    private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }

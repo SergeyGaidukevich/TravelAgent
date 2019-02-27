@@ -2,8 +2,8 @@ package com.gaidukevich.tragent.repository.jdbc;
 
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,10 +38,10 @@ public class JdbcTemplateCountryRepository implements Repository<Country> {
     @Override
     public void update(Long id, Country country) {
         Map<String, Object> params = new HashMap<>();
-        params.put("country_id", country.getId());
+        params.put("country_id", id.intValue());
         params.put("country_name", country.getName());
 
-        jdbcTemplate.update(SQL_UPDATE_COUNTRY_BY_ID, params);
+        getNamedParameterJdbcTemplate().update(SQL_UPDATE_COUNTRY_BY_ID, params);
     }
 
     @Override
@@ -60,5 +60,9 @@ public class JdbcTemplateCountryRepository implements Repository<Country> {
         country.setName(rs.getString("country_name"));
 
         return country;
-}
+    }
+
+    private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
+    }
 }

@@ -3,8 +3,8 @@ package com.gaidukevich.tragent.repository.jdbc;
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.repository.Repository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.Map;
 
 public class JdbcTemplateHotelRepository implements Repository<Hotel> {
-    private static final String SQL_INSERT_HOTEL = "INSERT INTO hotels (name, phone, country_id, stars)" +
+    private static final String SQL_INSERT_HOTEL = "INSERT INTO hotels (hotel_name, phone, country_id, stars)" +
             " VALUES (:hotel_name, :phone, :country_id, :stars)";
     private static final String SQL_SELECT_HOTEL_BY_ID = "SELECT * FROM hotels LEFT JOIN countries" +
-            " ON hotels.country_id = countries.country_id WHERE hotels_id = ?";
+            " ON hotels.country_id = countries.country_id WHERE hotel_id = ?";
     private static final String SQL_DELETE_HOTEL_BY_ID = "DELETE FROM hotels WHERE hotel_id = ?";
     private static final String SQL_UPDATE_HOTEL_BY_ID = "UPDATE hotels SET name = :hotel_name, phone = :phone," +
             " country_id = :country_id, stars = :stars WHERE hotel_id = :hotel_id";
@@ -34,7 +34,7 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
         Map<String, Object> params = new HashMap<>();
         putHotelParametersInMap(params, hotel);
 
-        jdbcTemplate.update(SQL_INSERT_HOTEL, params);
+        getNamedParameterJdbcTemplate().update(SQL_INSERT_HOTEL, params);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
         params.put("hotel_id", id);
         putHotelParametersInMap(params, hotel);
 
-        jdbcTemplate.update(SQL_UPDATE_HOTEL_BY_ID, params);
+        getNamedParameterJdbcTemplate().update(SQL_UPDATE_HOTEL_BY_ID, params);
     }
 
     @Override
@@ -81,5 +81,9 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
         hotel.setStars(rs.getInt("stars"));
 
         return hotel;
+    }
+
+    private NamedParameterJdbcTemplate getNamedParameterJdbcTemplate() {
+        return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }
