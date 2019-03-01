@@ -9,28 +9,29 @@
         http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
     <context:property-placeholder location="database.properties"/>
+    <context:component-scan base-package="com.gaidukevich.tragent.configuration"/>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${db.driver}"/>
-        <property name="url" value="${db.url}"/>
-        <property name="username" value="${db.user}"/>
-        <property name="password" value="${db.password}"/>
-    </bean>
+    <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+        <!--<property name="driverClassName" value="${db.driver}"/>-->
+        <!--<property name="url" value="${db.url}"/>-->
+        <!--<property name="username" value="${db.user}"/>-->
+        <!--<property name="password" value="${db.password}"/>-->
+    <!--</bean>-->
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
 
-    <bean id="countryRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository" autowire="constructor"/>
+    <!--<bean id="countryRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository" autowire="constructor"/>-->
 
-    <bean id="hotelRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository" autowire="constructor"/>
+    <!--<bean id="hotelRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository" autowire="constructor"/>-->
 
-    <bean id="reviewRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository" autowire="constructor"/>
+    <!--<bean id="reviewRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository" autowire="constructor"/>-->
 
-    <bean id="tourRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository" autowire="constructor"/>
+    <!--<bean id="tourRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository" autowire="constructor"/>-->
 
-    <bean id="userRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository" autowire="constructor"/>
+    <!--<bean id="userRepository" class="com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository" autowire="constructor"/>-->
 
-    <bean id="genericRepository" class="com.gaidukevich.tragent.repository.impl.GenericRepository" abstract="true"/>
+    <!--<bean id="genericRepository" class="com.gaidukevich.tragent.repository.impl.GenericRepository" abstract="true"/>-->
 
 </beans>
