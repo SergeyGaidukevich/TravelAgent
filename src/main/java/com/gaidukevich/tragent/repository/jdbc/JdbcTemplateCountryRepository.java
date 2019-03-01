@@ -4,6 +4,7 @@ import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,16 +27,19 @@ public class JdbcTemplateCountryRepository implements Repository<Country> {
     }
 
     @Override
+    @Transactional
     public void add(Country country) {
         jdbcTemplate.update(SQL_INSERT_COUNTRY, country.getName());
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         jdbcTemplate.update(SQL_DELETE_COUNTRY_BY_ID, id.intValue());
     }
 
     @Override
+    @Transactional
     public void update(Long id, Country country) {
         Map<String, Object> params = new HashMap<>();
         params.put("country_id", id.intValue());
@@ -45,11 +49,13 @@ public class JdbcTemplateCountryRepository implements Repository<Country> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Country> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL_COUNTRIES, this::mapCountry);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Country getById(Long id) {
         return jdbcTemplate.queryForObject(SQL_SELECT_COUNTRY_BY_ID, this::mapCountry, id.intValue());
     }

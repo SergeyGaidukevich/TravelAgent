@@ -6,6 +6,7 @@ import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +30,7 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
     }
 
     @Override
+    @Transactional
     public void add(Review review) {
         Map<String, Object> params = new HashMap<>();
         putReviewParametersInMap(params, review);
@@ -37,11 +39,13 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         jdbcTemplate.update(SQL_DELETE_HOTEL_BY_ID, id.intValue());
     }
 
     @Override
+    @Transactional
     public void update(Long id, Review review) {
         Map<String, Object> params = new HashMap<>();
 
@@ -52,11 +56,13 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Review> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL_REVIEWS, this::mapReview);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Review getById(Long id) {
         return jdbcTemplate.queryForObject(SQL_SELECT_ALL_REVIEWS_BY_ID, this::mapReview, id.intValue());
     }

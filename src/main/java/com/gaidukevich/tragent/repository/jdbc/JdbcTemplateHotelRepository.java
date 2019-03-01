@@ -5,6 +5,7 @@ import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,6 +31,7 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
     }
 
     @Override
+    @Transactional
     public void add(Hotel hotel) {
         Map<String, Object> params = new HashMap<>();
         putHotelParametersInMap(params, hotel);
@@ -38,11 +40,13 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         jdbcTemplate.update(SQL_DELETE_HOTEL_BY_ID, id.intValue());
     }
 
     @Override
+    @Transactional
     public void update(Long id, Hotel hotel) {
         Map<String, Object> params = new HashMap<>();
         params.put("hotel_id", id);
@@ -52,11 +56,13 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Hotel> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL_HOTELS, this::mapHotel);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Hotel getById(Long id) {
         return jdbcTemplate.queryForObject(SQL_SELECT_HOTEL_BY_ID, this::mapHotel, id.intValue());
     }

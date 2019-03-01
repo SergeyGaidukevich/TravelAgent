@@ -7,6 +7,8 @@ import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,6 +42,7 @@ public class JdbcTemplateUserRepository implements Repository<User> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void add(User user) {
         Map<String, Object> params = new HashMap<>();
         putUserParametersInMap(params, user);
@@ -48,11 +51,13 @@ public class JdbcTemplateUserRepository implements Repository<User> {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         jdbcTemplate.update(SQL_DELETE_USER_BY_ID, id.intValue());
     }
 
     @Override
+    @Transactional
     public void update(Long id, User user) {
         Map<String, Object> params = new HashMap<>();
         params.put("user_id", user.getId());
@@ -62,11 +67,13 @@ public class JdbcTemplateUserRepository implements Repository<User> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL_USERS, new UserMapExtractor());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getById(Long id) {
         return Objects.requireNonNull(jdbcTemplate.query(SQL_SELECT_USER_BY_ID, new UserMapExtractor(),
                 id.intValue())).get(0);
