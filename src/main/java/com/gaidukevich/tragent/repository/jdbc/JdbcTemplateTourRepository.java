@@ -7,6 +7,7 @@ import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
     }
 
     @Override
+    @Transactional
     public void add(Tour tour) {
         Map<String, Object> params = new HashMap<>();
         putTourParametersInMap(params, tour);
@@ -40,11 +42,13 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
         jdbcTemplate.update(SQL_DELETE_TOUR_BY_ID, id.intValue());
     }
 
     @Override
+    @Transactional
     public void update(Long id, Tour tour) {
         Map<String, Object> params = new HashMap<>();
         params.put("tour_id", tour.getId());
@@ -54,11 +58,13 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Tour> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL_TOURS, this::mapTour);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Tour getById(Long id) {
         return jdbcTemplate.queryForObject(SQL_SELECT_TOUR_BY_ID, this::mapTour, id.intValue());
     }
