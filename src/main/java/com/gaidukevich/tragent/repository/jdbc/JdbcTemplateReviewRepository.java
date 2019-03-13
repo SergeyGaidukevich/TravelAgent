@@ -3,9 +3,11 @@ package com.gaidukevich.tragent.repository.jdbc;
 import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
-import com.gaidukevich.tragent.repository.Repository;
+import com.gaidukevich.tragent.repository.EntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -14,7 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JdbcTemplateReviewRepository implements Repository<Review> {
+@Repository
+public class JdbcTemplateReviewRepository implements EntityRepository<Review> {
     private static final String SQL_INSERT_REVIEW = "INSERT INTO reviews (tour_id, user_id, content)" +
             " VALUES (:tour_id, :user_id, :content)";
     private static final String SQL_DELETE_HOTEL_BY_ID = "DELETE FROM reviews WHERE review_id = ?";
@@ -25,6 +28,7 @@ public class JdbcTemplateReviewRepository implements Repository<Review> {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcTemplateReviewRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

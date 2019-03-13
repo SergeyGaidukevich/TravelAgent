@@ -2,9 +2,11 @@ package com.gaidukevich.tragent.repository.jdbc;
 
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
-import com.gaidukevich.tragent.repository.Repository;
+import com.gaidukevich.tragent.repository.EntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -13,7 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JdbcTemplateHotelRepository implements Repository<Hotel> {
+@Repository
+public class JdbcTemplateHotelRepository implements EntityRepository<Hotel> {
     private static final String SQL_INSERT_HOTEL = "INSERT INTO hotels (hotel_name, phone, country_id, stars)" +
             " VALUES (:hotel_name, :phone, :country_id, :stars)";
     private static final String SQL_SELECT_HOTEL_BY_ID = "SELECT * FROM hotels LEFT JOIN countries" +
@@ -26,6 +29,7 @@ public class JdbcTemplateHotelRepository implements Repository<Hotel> {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcTemplateHotelRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
