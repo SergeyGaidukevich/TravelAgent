@@ -6,6 +6,7 @@ import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.TourRepository;
 
+@Deprecated
 public class TourRepositoryImpl extends GenericRepository<Tour> implements TourRepository {
     @Override
     public void update(Long id, Tour newTour) {
