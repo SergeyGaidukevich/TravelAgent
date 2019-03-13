@@ -6,6 +6,7 @@ import com.gaidukevich.tragent.repository.UserRepository;
 
 import java.util.List;
 
+@Deprecated
 public class UserRepositoryImpl extends GenericRepository<User> implements UserRepository {
     @Override
     public void update(Long id, User newUser) {

@@ -5,6 +5,7 @@ import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.ReviewRepository;
 
+@Deprecated
 public class ReviewRepositoryImpl extends GenericRepository<Review> implements ReviewRepository {
     @Override
     public void update(Long id, Review newReview) {

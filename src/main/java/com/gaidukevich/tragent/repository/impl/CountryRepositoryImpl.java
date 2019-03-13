@@ -3,6 +3,7 @@ package com.gaidukevich.tragent.repository.impl;
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.repository.CountryRepository;
 
+@Deprecated
 public class CountryRepositoryImpl extends GenericRepository<Country> implements CountryRepository {
     @Override
     public void update(Long id, Country newCountry) {
