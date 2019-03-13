@@ -5,7 +5,7 @@ import com.gaidukevich.tragent.entity.User;
 
 import java.util.List;
 
-public interface UserRepository extends Repository<User> {
+public interface UserRepository extends EntityRepository<User> {
     void updateLogin(Long id, String login);
 
     void updatePassword(Long id, String password);
