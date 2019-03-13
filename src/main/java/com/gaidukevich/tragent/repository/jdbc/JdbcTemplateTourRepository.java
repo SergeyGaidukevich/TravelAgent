@@ -4,9 +4,11 @@ import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.TourType;
-import com.gaidukevich.tragent.repository.Repository;
+import com.gaidukevich.tragent.repository.EntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -15,7 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JdbcTemplateTourRepository implements Repository<Tour> {
+@Repository
+public class JdbcTemplateTourRepository implements EntityRepository<Tour> {
     private static final String SQL_INSERT_TOUR = "INSERT INTO tours (photo, country_id, date, duration, , hotel_id," +
             " type, description, cost) VALUES (:photo, :country_id, :date, :duration, :hotel_id, :type, :description, :cost)";
     private static final String SQL_DELETE_TOUR_BY_ID = "DELETE FROM tours WHERE tour_id = ?";
@@ -28,6 +31,7 @@ public class JdbcTemplateTourRepository implements Repository<Tour> {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcTemplateTourRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
