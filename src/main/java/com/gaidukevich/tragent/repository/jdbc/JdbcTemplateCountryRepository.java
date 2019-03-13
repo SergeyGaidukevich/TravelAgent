@@ -1,9 +1,11 @@
 package com.gaidukevich.tragent.repository.jdbc;
 
 import com.gaidukevich.tragent.entity.Country;
-import com.gaidukevich.tragent.repository.Repository;
+import com.gaidukevich.tragent.repository.EntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -12,7 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class JdbcTemplateCountryRepository implements Repository<Country> {
+@Repository
+public class JdbcTemplateCountryRepository implements EntityRepository<Country> {
     private static final String SQL_SELECT_COUNTRY_BY_ID = "SELECT * FROM countries WHERE country_id = ?";
     private static final String SQL_INSERT_COUNTRY = "INSERT INTO countries (country_name) VALUES (?)";
     private static final String SQL_DELETE_COUNTRY_BY_ID = "DELETE FROM countries WHERE country_id = ?";
@@ -22,6 +25,7 @@ public class JdbcTemplateCountryRepository implements Repository<Country> {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcTemplateCountryRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

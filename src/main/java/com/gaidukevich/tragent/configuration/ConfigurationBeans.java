@@ -1,21 +1,21 @@
 package com.gaidukevich.tragent.configuration;
 
-import com.gaidukevich.tragent.repository.jdbc.JdbcTemplateCountryRepository;
-import com.gaidukevich.tragent.repository.jdbc.JdbcTemplateHotelRepository;
-import com.gaidukevich.tragent.repository.jdbc.JdbcTemplateReviewRepository;
-import com.gaidukevich.tragent.repository.jdbc.JdbcTemplateTourRepository;
-import com.gaidukevich.tragent.repository.jdbc.JdbcTemplateUserRepository;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import java.util.ResourceBundle;
 
 @Configuration
-public class RepositoriesBeans {
+@PropertySource("classpath:database.properties")
+@ComponentScan("com.gaidukevich.tragent")
+public class ConfigurationBeans {
     private static final String DATABASE = "database";
     private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(DATABASE);
     private static final String DB_DRIVER = "db.driver";
@@ -48,27 +48,7 @@ public class RepositoriesBeans {
     }
 
     @Bean
-    public JdbcTemplateCountryRepository countryRepository() {
-        return new JdbcTemplateCountryRepository(jdbcTemplate());
-    }
-
-    @Bean
-    public JdbcTemplateHotelRepository hotelRepository() {
-        return new JdbcTemplateHotelRepository(jdbcTemplate());
-    }
-
-    @Bean
-    public JdbcTemplateReviewRepository reviewRepository() {
-        return new JdbcTemplateReviewRepository(jdbcTemplate());
-    }
-
-    @Bean
-    public JdbcTemplateTourRepository tourRepository() {
-        return new JdbcTemplateTourRepository(jdbcTemplate());
-    }
-
-    @Bean
-    public JdbcTemplateUserRepository userRepository() {
-        return new JdbcTemplateUserRepository(jdbcTemplate());
+    public TransactionTemplate transactionTemplate() {
+        return new TransactionTemplate(platformTransactionManager());
     }
 }

@@ -3,11 +3,12 @@ package com.gaidukevich.tragent.repository.jdbc;
 import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
-import com.gaidukevich.tragent.repository.Repository;
+import com.gaidukevich.tragent.repository.EntityRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.transaction.annotation.Propagation;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.ResultSet;
@@ -20,7 +21,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class JdbcTemplateUserRepository implements Repository<User> {
+@Repository
+public class JdbcTemplateUserRepository implements EntityRepository<User> {
     private static final String SQL_SELECT_ALL_USERS = "SELECT users.user_id, users.login, users.password," +
             " user_tours.tour_id, reviews.review_id FROM users" +
             " LEFT JOIN reviews ON reviews.user_id = users.user_id" +
@@ -37,6 +39,7 @@ public class JdbcTemplateUserRepository implements Repository<User> {
 
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
     public JdbcTemplateUserRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
