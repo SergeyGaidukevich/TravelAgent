@@ -4,6 +4,7 @@ import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.repository.HotelRepository;
 
+@Deprecated
 public class HotelRepositoryImpl extends GenericRepository<Hotel> implements HotelRepository {
     @Override
     public void update(Long id, Hotel newHotel) {
