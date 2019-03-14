@@ -1,36 +1,52 @@
 package com.gaidukevich.tragent.configuration;
 
+import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
-
-import java.util.ResourceBundle;
 
 @Configuration
 @PropertySource("classpath:database.properties")
 @ComponentScan("com.gaidukevich.tragent")
 public class ConfigurationBeans {
-    private static final String DATABASE = "database";
-    private static final ResourceBundle resourceBundle = ResourceBundle.getBundle(DATABASE);
     private static final String DB_DRIVER = "db.driver";
     private static final String DB_USER = "db.user";
     private static final String DB_PASSWORD = "db.password";
     private static final String DB_URL = "db.url";
 
-    @Bean
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    private final Environment environment;
 
-        dataSource.setDriverClassName(resourceBundle.getString(DB_DRIVER));
-        dataSource.setUrl(resourceBundle.getString(DB_URL));
-        dataSource.setUsername(resourceBundle.getString(DB_USER));
-        dataSource.setPassword(resourceBundle.getString(DB_PASSWORD));
+    @Autowired
+    public ConfigurationBeans(Environment environment) {
+        this.environment = environment;
+    }
+
+    @Bean
+    public BasicDataSource dataSource() {
+        BasicDataSource dataSource = new BasicDataSource();
+        String driver = environment.getProperty(DB_DRIVER);
+        String url = environment.getProperty(DB_URL);
+        String userName = environment.getProperty(DB_USER);
+        String password = environment.getProperty(DB_PASSWORD);
+
+        if (driver != null && url != null && userName != null && password != null) {
+            dataSource.setDriverClassName(driver);
+            dataSource.setUrl(url);
+            dataSource.setUsername(userName);
+            dataSource.setPassword(password);
+            dataSource.setMinIdle(5);
+            dataSource.setMaxIdle(10);
+            dataSource.setMaxOpenPreparedStatements(50);
+        } else {
+            //log
+        }
 
         return dataSource;
     }
