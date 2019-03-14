@@ -11,6 +11,7 @@
         <postgres.version>9.1-901-1.jdbc4</postgres.version>
         <mysql.vesion>8.0.12</mysql.vesion>
         <hikari.version>2.7.8</hikari.version>
+        <commons.lang.version>3.4</commons.lang.version>
     </properties>
 
     <groupId>com.gaidukevich</groupId>
@@ -61,6 +62,16 @@
             <artifactId>HikariCP</artifactId>
             <version>${hikari.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-dbcp</artifactId>
+            <version>7.0.47</version>
         </dependency>
 
     </dependencies>
