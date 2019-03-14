@@ -21,8 +21,12 @@ public class ConfigurationBeans {
     private static final String DB_PASSWORD = "db.password";
     private static final String DB_URL = "db.url";
 
+    private final Environment environment;
+
     @Autowired
-    private Environment environment;
+    public ConfigurationBeans(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public BasicDataSource dataSource() {
@@ -37,9 +41,9 @@ public class ConfigurationBeans {
             dataSource.setUrl(url);
             dataSource.setUsername(userName);
             dataSource.setPassword(password);
-            dataSource.setMinIdle(1);
+            dataSource.setMinIdle(5);
             dataSource.setMaxIdle(10);
-            dataSource.setMaxOpenPreparedStatements(100);
+            dataSource.setMaxOpenPreparedStatements(50);
         } else {
             //log
         }
