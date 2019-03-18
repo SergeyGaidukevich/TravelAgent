@@ -6,6 +6,7 @@ import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -17,7 +18,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Repository("tourRepository")
+@Profile("jdbc")
 public class JdbcTemplateTourRepository implements EntityRepository<Tour> {
     private static final String SQL_INSERT_TOUR = "INSERT INTO tours (photo, country_id, date, duration, , hotel_id," +
             " type, description, cost) VALUES (:photo, :country_id, :date, :duration, :hotel_id, :type, :description, :cost)";
@@ -27,7 +29,7 @@ public class JdbcTemplateTourRepository implements EntityRepository<Tour> {
             " cost = :cost WHERE tour_id = :tour_id";
     private static final String SQL_SELECT_ALL_TOURS = "SELECT * FROM tours";
     private static final String SQL_SELECT_TOUR_BY_ID = "SELECT * FROM tours LEFT JOIN countries" +
-            " ON tours.country_id = countries.country_id WHERE tours_id = ?";
+            " ON tours.country_id = countries.country_id WHERE tour_id = ?";
 
     private JdbcTemplate jdbcTemplate;
 
@@ -95,7 +97,7 @@ public class JdbcTemplateTourRepository implements EntityRepository<Tour> {
         tour.setCountry(new Country(country_id, country_name));
 
         tour.setHotel(new Hotel(rs.getLong("hotel_id"), null, null, null, 0));
-        tour.setType(TourType.valueOf(rs.getString("type")));
+        tour.setType(TourType.valueOf(rs.getString("type").toUpperCase()));
         tour.setDescription(rs.getString("description"));
         tour.setCost(rs.getDouble("cost"));
 
