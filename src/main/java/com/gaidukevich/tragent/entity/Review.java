@@ -60,7 +60,7 @@ public class Review extends Entity {
     @Override
     public String toString() {
         return "Review{" +
-                "tours=" + tour +
+                "tour=" + tour +
                 ", user=" + user +
                 ", content='" + content + '\'' +
                 '}';
