@@ -10,6 +10,10 @@ public class Review extends Entity {
     public Review() {
     }
 
+    public Review(Long id) {
+        super(id);
+    }
+
     public Review(Long id, Tour tour, User user, String content) {
         super(id);
         this.tour = tour;
