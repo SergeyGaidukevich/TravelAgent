@@ -3,8 +3,12 @@ package com.gaidukevich.tragent.repository.impl;
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.repository.HotelRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 @Deprecated
+@Repository("hotelRepository")
+@Profile("collectionsRepository")
 public class HotelRepositoryImpl extends GenericRepository<Hotel> implements HotelRepository {
     @Override
     public void update(Long id, Hotel newHotel) {

@@ -5,8 +5,12 @@ import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.TourRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 @Deprecated
+@Repository("tourRepository")
+@Profile("collectionsRepository")
 public class TourRepositoryImpl extends GenericRepository<Tour> implements TourRepository {
     @Override
     public void update(Long id, Tour newTour) {

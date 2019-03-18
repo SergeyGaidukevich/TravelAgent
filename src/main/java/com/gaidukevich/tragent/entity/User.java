@@ -12,6 +12,12 @@ public class User extends Entity {
     public User() {
     }
 
+    public User(Long id, String login, String password) {
+        super(id);
+        this.login = login;
+        this.password = password;
+    }
+
     public User(Long id, String login, String password, List<Tour> tours, List<Review> reviews) {
         super(id);
         this.login = login;

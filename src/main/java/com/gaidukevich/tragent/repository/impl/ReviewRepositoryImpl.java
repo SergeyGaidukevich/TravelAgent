@@ -4,8 +4,12 @@ import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.ReviewRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 @Deprecated
+@Repository("reviewRepository")
+@Profile("collectionsRepository")
 public class ReviewRepositoryImpl extends GenericRepository<Review> implements ReviewRepository {
     @Override
     public void update(Long id, Review newReview) {

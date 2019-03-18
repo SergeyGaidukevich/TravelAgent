@@ -2,8 +2,12 @@ package com.gaidukevich.tragent.repository.impl;
 
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.repository.CountryRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 @Deprecated
+@Repository("countryRepository")
+@Profile("collectionsRepository")
 public class CountryRepositoryImpl extends GenericRepository<Country> implements CountryRepository {
     @Override
     public void update(Long id, Country newCountry) {
