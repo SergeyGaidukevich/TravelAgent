@@ -7,11 +7,15 @@
     <properties>
         <java.version>1.8</java.version>
         <testng.version>6.14.3</testng.version>
-        <spring.framework>5.1.3.RELEASE</spring.framework>
+        <springframework.version>5.1.3.RELEASE</springframework.version>
         <postgres.version>9.1-901-1.jdbc4</postgres.version>
         <mysql.vesion>8.0.12</mysql.vesion>
         <hikari.version>2.7.8</hikari.version>
         <commons.lang.version>3.4</commons.lang.version>
+        <slf4j.version>1.7.25</slf4j.version>
+        <dbcp.version>7.0.47</dbcp.version>
+        <logback.version>1.2.3</logback.version>
+        <aspectj.version>1.9.2</aspectj.version>
     </properties>
 
     <groupId>com.gaidukevich</groupId>
@@ -45,17 +49,28 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>${spring.framework}</version>
+            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.framework}</version>
+            <version>${springframework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.framework}</version>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${springframework.version}</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -71,7 +86,33 @@
         <dependency>
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-dbcp</artifactId>
-            <version>7.0.47</version>
+            <version>${dbcp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
     </dependencies>
