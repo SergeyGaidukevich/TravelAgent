@@ -5,6 +5,7 @@ import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,7 +22,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-@Repository
+@Repository("userRepository")
+@Profile("jdbc")
 public class JdbcTemplateUserRepository implements EntityRepository<User> {
     private static final String SQL_SELECT_ALL_USERS = "SELECT users.user_id, users.login, users.password," +
             " user_tours.tour_id, reviews.review_id FROM users" +

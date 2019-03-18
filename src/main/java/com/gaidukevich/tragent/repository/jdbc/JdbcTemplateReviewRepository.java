@@ -5,6 +5,7 @@ import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -16,7 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+@Repository("reviewRepository")
+@Profile("jdbc")
 public class JdbcTemplateReviewRepository implements EntityRepository<Review> {
     private static final String SQL_INSERT_REVIEW = "INSERT INTO reviews (tour_id, user_id, content)" +
             " VALUES (:tour_id, :user_id, :content)";
@@ -24,7 +26,7 @@ public class JdbcTemplateReviewRepository implements EntityRepository<Review> {
     private static final String SQL_UPDATE_REVIEW_BY_ID = "UPDATE reviews SET name = :tour_id, :user_id, :content" +
             " WHERE review_id = :review_id";
     private static final String SQL_SELECT_ALL_REVIEWS = "SELECT * FROM reviews";
-    private static final String SQL_SELECT_ALL_REVIEWS_BY_ID = "SELECT * FROM reviews WHERE reviews_id = ?";
+    private static final String SQL_SELECT_ALL_REVIEWS_BY_ID = "SELECT * FROM reviews WHERE review_id = ?";
 
     private JdbcTemplate jdbcTemplate;
 

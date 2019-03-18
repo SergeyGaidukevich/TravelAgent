@@ -3,10 +3,14 @@ package com.gaidukevich.tragent.repository.impl;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.UserRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Deprecated
+@Repository("userRepository")
+@Profile("collectionsRepository")
 public class UserRepositoryImpl extends GenericRepository<User> implements UserRepository {
     @Override
     public void update(Long id, User newUser) {

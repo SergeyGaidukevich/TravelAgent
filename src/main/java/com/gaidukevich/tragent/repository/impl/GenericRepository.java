@@ -4,10 +4,15 @@ import com.gaidukevich.tragent.entity.Entity;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import com.gaidukevich.tragent.repository.exception.EntityAlreadyExistsException;
 import com.gaidukevich.tragent.repository.exception.EntityNotFoundException;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
+@Repository("GenericRepository")
+@Profile("collectionsRepository")
 public abstract class GenericRepository<T extends Entity> implements EntityRepository<T> {
     private final List<T> entities = new ArrayList<>();
 
