@@ -22,12 +22,18 @@ public class RepositoryLog {
 
     @AfterReturning(value = "doSomething()", argNames = "joinPoint")
     public void beforeCall(JoinPoint joinPoint) {
-        LOGGER.info("Class :" + joinPoint.getThis() + " | Method :" + joinPoint.getSignature().getName() + "() with Args => "
+        String className = joinPoint.getThis().toString().split("@")[0];
+        String methodName = joinPoint.getSignature().getName();
+
+        LOGGER.info("Class :" + className + " | Method :" + methodName + "() with Args => "
                 + Arrays.asList(joinPoint.getArgs()) + " worked successfully.");
     }
 
     @Before(value = "doSomething()", argNames = "joinPoint")
     public void isRunningGetByIdJdbc(JoinPoint joinPoint) {
-        LOGGER.info("Class :" + joinPoint.getThis() + " | Method :" + joinPoint.getSignature().getName() + "(..) will be called.");
+        String className = joinPoint.getThis().toString().split("@")[0];
+        String methodName = joinPoint.getSignature().getName();
+
+        LOGGER.info("Class :" + className + " | Method :" + methodName + "(..) will be called.");
     }
 }
