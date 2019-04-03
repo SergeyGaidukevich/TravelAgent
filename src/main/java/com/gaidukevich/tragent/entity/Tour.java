@@ -1,15 +1,38 @@
 package com.gaidukevich.tragent.entity;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Tour extends Entity {
+    @NotBlank(message = "Please enter photo")
     private String photo;
+
+    @NotBlank(message = "Please enter date")
     private String date;
+
+    @NotBlank(message = "Please enter duration")
     private String duration;
+
+    @NotNull
     private Country country;
+
+    @NotNull
     private Hotel hotel;
+
+    @NotNull
     private TourType type;
+
+    @NotBlank(message = "Please enter description")
     private String description;
+
+    @NotNull(message = "Please enter cost")
+    @Min(0)
     private Double cost;
 
     public Tour() {
@@ -30,104 +53,5 @@ public class Tour extends Entity {
         this.type = type;
         this.description = description;
         this.cost = cost;
-    }
-
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
-
-    public TourType getType() {
-        return type;
-    }
-
-    public void setType(TourType type) {
-        this.type = type;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Double getCost() {
-        return cost;
-    }
-
-    public void setCost(Double cost) {
-        this.cost = cost;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Tour tour = (Tour) o;
-        return Objects.equals(photo, tour.photo) &&
-                Objects.equals(date, tour.date) &&
-                Objects.equals(duration, tour.duration) &&
-                Objects.equals(country, tour.country) &&
-                Objects.equals(hotel, tour.hotel) &&
-                Objects.equals(type, tour.type) &&
-                Objects.equals(description, tour.description) &&
-                Objects.equals(cost, tour.cost);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), photo, date, duration, country, hotel, type, description, cost);
-    }
-
-    @Override
-    public String toString() {
-        return "Tour{" +
-                "photo='" + photo + '\'' +
-                ", date='" + date + '\'' +
-                ", duration='" + duration + '\'' +
-                ", country=" + country +
-                ", hotel=" + hotel +
-                ", type=" + type +
-                ", description='" + description + '\'' +
-                ", cost=" + cost +
-                '}';
     }
 }

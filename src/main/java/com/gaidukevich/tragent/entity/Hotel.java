@@ -1,11 +1,30 @@
 package com.gaidukevich.tragent.entity;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class Hotel extends Entity {
+    @NotBlank(message = "Please entry name")
     private String name;
+
+    @NotBlank(message = "Please entry phone")
     private String phone;
+
+    @NotNull(message = "Please entry country")
     private Country country;
+
+    @Digits(integer = 1, fraction = 0, message = "one digit")
+    @NotNull(message = "Please entry stars")
+    @Min(0)
+    @Max(5)
     private int stars;
 
     public Hotel() {
@@ -17,64 +36,5 @@ public class Hotel extends Entity {
         this.phone = phone;
         this.country = country;
         this.stars = stars;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
-    public int getStars() {
-        return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        Hotel hotel = (Hotel) o;
-        return stars == hotel.stars &&
-                Objects.equals(name, hotel.name) &&
-                Objects.equals(phone, hotel.phone) &&
-                Objects.equals(country, hotel.country);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, phone, country, stars);
-    }
-
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", country=" + country +
-                ", stars=" + stars +
-                '}';
     }
 }
