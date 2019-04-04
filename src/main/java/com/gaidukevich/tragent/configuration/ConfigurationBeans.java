@@ -9,13 +9,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
 
@@ -23,7 +21,9 @@ import java.util.Properties;
 @PropertySource("classpath:database.properties")
 @ComponentScan("com.gaidukevich.tragent")
 @EnableAspectJAutoProxy
+@EnableTransactionManagement
 public class ConfigurationBeans {
+
     @Value("${db.driver}")
     private String dbDriver;
 
@@ -72,15 +72,15 @@ public class ConfigurationBeans {
         return jdbcTemplate;
     }
 
-    @Bean
-    public PlatformTransactionManager platformTransactionManager() {
-        return new DataSourceTransactionManager(dataSource());
-    }
+//    @Bean
+//    public PlatformTransactionManager platformTransactionManager() {
+//        return new DataSourceTransactionManager(dataSource());
+//    }
 
-    @Bean
-    public TransactionTemplate transactionTemplate() {
-        return new TransactionTemplate(platformTransactionManager());
-    }
+//    @Bean
+//    public TransactionTemplate transactionTemplate() {
+//        return new TransactionTemplate(platformTransactionManager());
+//    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -94,13 +94,15 @@ public class ConfigurationBeans {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+        properties.setProperty("hibernate.show_sql", "true");
         em.setJpaProperties(properties);
 
         return em;
     }
 
     @Bean
-    public JpaTransactionManager geJpaTransactionManager() {
+    public JpaTransactionManager jpaTransactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
         return transactionManager;

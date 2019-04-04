@@ -3,24 +3,34 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@javax.persistence.Entity
+@Entity
+@Table(name = "reviews")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NamedQuery(name = "Review_getById", query = "FROM Review WHERE id = :review_id")
+@NamedQuery(name = "Review_getById", query = "SELECT review FROM Review review WHERE review.id = :review_id")
 public class Review extends SuperEntity {
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_id")
     @NotNull
     private Tour tour;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 
+    @Column(name = "content")
     @NotBlank(message = "Please enter content")
     private String content;
 
