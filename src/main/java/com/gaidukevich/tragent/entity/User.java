@@ -3,13 +3,19 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class User extends Entity {
+@NamedQuery(name = "User_getById", query = "FROM User WHERE id = :user_id")
+public class User extends SuperEntity {
     @NotBlank(message = "Please entry login")
     @Size(max = 45, message = "Invalid login")
     private String login;
@@ -18,8 +24,10 @@ public class User extends Entity {
     @Size(max = 45, message = "Invalid password")
     private String password;
 
+    @ManyToMany
     private List<Tour> tours;
 
+    @ManyToMany
     private List<Review> reviews;
 
     public User() {

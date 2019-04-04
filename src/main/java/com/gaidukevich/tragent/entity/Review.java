@@ -3,15 +3,21 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@javax.persistence.Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Review extends Entity {
+@NamedQuery(name = "Review_getById", query = "FROM Review WHERE id = :review_id")
+public class Review extends SuperEntity {
+    @ManyToOne
     @NotNull
     private Tour tour;
 
+    @ManyToOne
     @NotNull
     private User user;
 

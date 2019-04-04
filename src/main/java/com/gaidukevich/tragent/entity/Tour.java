@@ -3,13 +3,18 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class Tour extends Entity {
+@NamedQuery(name = "Tour_getById", query = "FROM Tour WHERE id = :tour_id")
+public class Tour extends SuperEntity {
     @NotBlank(message = "Please enter photo")
     private String photo;
 
@@ -19,9 +24,11 @@ public class Tour extends Entity {
     @NotBlank(message = "Please enter duration")
     private String duration;
 
+    @ManyToOne
     @NotNull
     private Country country;
 
+    @ManyToOne
     @NotNull
     private Hotel hotel;
 
