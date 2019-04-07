@@ -24,6 +24,7 @@ import java.util.Properties;
 @ComponentScan("com.gaidukevich.tragent")
 @EnableAspectJAutoProxy
 public class ConfigurationBeans {
+
     @Value("${db.driver}")
     private String dbDriver;
 

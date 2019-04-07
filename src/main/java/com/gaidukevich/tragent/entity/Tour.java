@@ -6,15 +6,18 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "tours")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NamedQuery(name = "Tour_getById", query = "FROM Tour WHERE id = :tour_id")
+@NamedQuery(name = "Tour_getById", query = "SELECT tour FROM Tour tour WHERE tour.id = :tour_id")
 public class Tour extends SuperEntity {
+
     @NotBlank(message = "Please enter photo")
     private String photo;
 

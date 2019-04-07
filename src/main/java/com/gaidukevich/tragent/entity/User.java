@@ -5,17 +5,19 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
+@Table(name = "tours")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NamedQuery(name = "User_getById", query = "FROM User WHERE id = :user_id")
+@NamedQuery(name = "User_getById", query = "SELECT user FROM User user WHERE user.id = :user_id")
 public class User extends SuperEntity {
+
     @NotBlank(message = "Please entry login")
     @Size(max = 45, message = "Invalid login")
     private String login;

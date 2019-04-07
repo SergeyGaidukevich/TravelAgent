@@ -45,6 +45,10 @@ public class HibernateCountryRepository implements EntityRepository<Country> {
     @Override
     @Transactional
     public Country getById(Long id) {
-        return null;
+        List countries = this.entityManager.createNamedQuery("Country_getById")
+                .setParameter("country_id", id)
+                .getResultList();
+
+        return (Country) countries.get(0);
     }
 }

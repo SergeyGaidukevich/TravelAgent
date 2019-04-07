@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -14,10 +14,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@Table(name = "hotels")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@NamedQuery(name = "Hotel_getById", query = "FROM Hotel WHERE id = :hotel_id")
+@NamedQuery(name = "Hotel_getById", query = "SELECT hotel FROM Hotel hotel WHERE hotel.id = :hotel_id")
 public class Hotel extends SuperEntity {
+
     @NotBlank(message = "Please entry name")
     private String name;
 
