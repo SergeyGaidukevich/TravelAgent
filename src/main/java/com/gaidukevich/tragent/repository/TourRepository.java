@@ -3,7 +3,7 @@ package com.gaidukevich.tragent.repository;
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.entity.Tour;
-import com.gaidukevich.tragent.entity.TourType;
+import com.gaidukevich.tragent.entity.tour_type.TourType;
 
 public interface TourRepository extends EntityRepository<Tour> {
     void updatePhoto(Long id, String photo);

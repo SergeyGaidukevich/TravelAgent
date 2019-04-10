@@ -1,4 +1,4 @@
-package com.gaidukevich.tragent.entity;
+package com.gaidukevich.tragent.entity.tour_type;
 
 public enum TourType {
     TOURIST,

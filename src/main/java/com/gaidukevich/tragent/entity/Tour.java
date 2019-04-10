@@ -1,15 +1,15 @@
 package com.gaidukevich.tragent.entity;
 
+import com.gaidukevich.tragent.entity.tour_type.TourType;
+import com.gaidukevich.tragent.entity.tour_type.TourTypeConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -44,7 +44,7 @@ public class Tour extends SuperEntity {
     private Hotel hotel;
 
     @Column(name = "type")
-    @Enumerated(EnumType.STRING)
+    @Convert(converter = TourTypeConverter.class)
     @NotNull
     private TourType type;
 
