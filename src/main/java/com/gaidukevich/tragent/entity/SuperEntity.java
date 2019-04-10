@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 @Data
-@EqualsAndHashCode(callSuper = false)
 public class SuperEntity {
 
     @Id

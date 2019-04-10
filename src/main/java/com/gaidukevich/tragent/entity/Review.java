@@ -3,8 +3,11 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -17,14 +20,15 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = "Review_getById", query = "SELECT review FROM Review review WHERE review.id = :review_id")
 public class Review extends SuperEntity {
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     private Tour tour;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @NotNull
     private User user;
 
+    @Column(name = "content")
     @NotBlank(message = "Please enter content")
     private String content;
 

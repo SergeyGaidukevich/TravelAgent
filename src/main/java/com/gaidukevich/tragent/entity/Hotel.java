@@ -3,8 +3,13 @@ package com.gaidukevich.tragent.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -20,16 +25,20 @@ import javax.validation.constraints.NotNull;
 @NamedQuery(name = "Hotel_getById", query = "SELECT hotel FROM Hotel hotel WHERE hotel.id = :hotel_id")
 public class Hotel extends SuperEntity {
 
+    @Column(name = "hotel_name")
     @NotBlank(message = "Please entry name")
     private String name;
 
+    @Column(name = "phone")
     @NotBlank(message = "Please entry phone")
     private String phone;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId
     @NotNull(message = "Please entry country")
     private Country country;
 
+    @Column(name = "stars")
     @Digits(integer = 1, fraction = 0, message = "one digit")
     @NotNull(message = "Please entry stars")
     @Min(0)
