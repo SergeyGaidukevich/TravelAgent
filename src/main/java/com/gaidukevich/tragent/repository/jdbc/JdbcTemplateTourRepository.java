@@ -3,7 +3,7 @@ package com.gaidukevich.tragent.repository.jdbc;
 import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.entity.Tour;
-import com.gaidukevich.tragent.entity.tour_type.TourType;
+import com.gaidukevich.tragent.entity.TourType;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;

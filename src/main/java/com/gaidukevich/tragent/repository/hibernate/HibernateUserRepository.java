@@ -1,6 +1,5 @@
 package com.gaidukevich.tragent.repository.hibernate;
 
-import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.entity.User;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.context.annotation.Profile;

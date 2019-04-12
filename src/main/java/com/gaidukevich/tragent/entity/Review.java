@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -21,10 +21,12 @@ import javax.validation.constraints.NotNull;
 public class Review extends SuperEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tour_id")
     @NotNull
     private Tour tour;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     @NotNull
     private User user;
 

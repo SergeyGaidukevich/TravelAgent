@@ -1,6 +1,5 @@
 package com.gaidukevich.tragent.repository.hibernate;
 
-import com.gaidukevich.tragent.entity.Country;
 import com.gaidukevich.tragent.entity.Hotel;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.context.annotation.Profile;
@@ -45,10 +44,10 @@ public class HibernateHotelRepository implements EntityRepository<Hotel> {
     @Override
     @Transactional
     public Hotel getById(Long id) {
-            List hotels = this.entityManager.createNamedQuery("Hotel_getById")
-                    .setParameter("hotel_id", id)
-                    .getResultList();
+        List hotels = this.entityManager.createNamedQuery("Hotel_getById")
+                .setParameter("hotel_id", id)
+                .getResultList();
 
-            return (Hotel) hotels.get(0);
+        return (Hotel) hotels.get(0);
     }
 }

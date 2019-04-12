@@ -1,14 +1,14 @@
 package com.gaidukevich.tragent.entity;
 
-import com.gaidukevich.tragent.entity.tour_type.TourType;
-import com.gaidukevich.tragent.entity.tour_type.TourTypeConverter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -36,15 +36,17 @@ public class Tour extends SuperEntity {
     private String duration;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
     @NotNull
     private Country country;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
     @NotNull
     private Hotel hotel;
 
     @Column(name = "type")
-    @Convert(converter = TourTypeConverter.class)
+    @Enumerated(EnumType.STRING)
     @NotNull
     private TourType type;
 

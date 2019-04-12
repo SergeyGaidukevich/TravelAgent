@@ -1,6 +1,5 @@
 package com.gaidukevich.tragent.repository.hibernate;
 
-import com.gaidukevich.tragent.entity.Review;
 import com.gaidukevich.tragent.entity.Tour;
 import com.gaidukevich.tragent.repository.EntityRepository;
 import org.springframework.context.annotation.Profile;
@@ -21,7 +20,7 @@ public class HibernateTourRepository implements EntityRepository<Tour> {
     @Override
     @Transactional
     public void add(Tour entity) {
-
+        entityManager.persist(entity);
     }
 
     @Override

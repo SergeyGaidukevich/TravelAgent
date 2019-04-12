@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.NamedQuery;
@@ -34,6 +33,7 @@ public class Hotel extends SuperEntity {
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
     @MapsId
     @NotNull(message = "Please entry country")
     private Country country;
